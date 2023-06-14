@@ -1,0 +1,37 @@
+from qiskit import QuantumCircuit, Aer, execute
+
+# Criando um circuito quântico com 3 qubits
+
+circuit = QuantumCircuit(3, 3)
+
+# Aplicando uma porta Hadamard em cada qubit
+
+circuit.h(range(3))
+
+# Aplicando uma porta CNOT entre o primeiro e o segundo qubit
+
+circuit.cx(0, 1)
+
+# Aplicando uma porta CNOT entre o segundo e o terceiro qubit
+
+circuit.cx(1, 2)
+
+# Medindo todos os qubits
+
+circuit.measure(range(3), range(3))
+
+# Simulando o circuito quântico
+
+simulator = Aer.get_backend('qasm_simulator')
+
+job = execute(circuit, simulator, shots=1)
+
+# Obtendo os resultados das medidas
+
+result = job.result()
+
+counts = result.get_counts(circuit)
+
+# Imprimindo os resultados
+
+print(counts)
